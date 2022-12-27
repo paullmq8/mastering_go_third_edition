@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"os"
+)
 
 func main() {
 	// Get user input
@@ -21,6 +24,14 @@ func main() {
 	arr1 = appendSlice(arr1)
 	fmt.Printf("%p\n", &arr1)
 	fmt.Println(arr1)
+
+	// go run input.go 'a b c'
+	// /var/folders/2w/srvhlv8d13l_l1dxlcs1_2y40000gp/T/go-build3860030454/b001/exe/input a b c
+	// go run input.go "a b c"
+	// /var/folders/2w/srvhlv8d13l_l1dxlcs1_2y40000gp/T/go-build3920247801/b001/exe/input a b c
+	// ./input abc
+	// ./input abc
+	fmt.Println(os.Args[0], os.Args[1])
 }
 
 func appendSlice(arr []int) []int {
