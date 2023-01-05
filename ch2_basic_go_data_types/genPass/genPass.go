@@ -3,9 +3,9 @@ package main
 import (
 	"fmt"
 	"math/rand"
-/* 	"os"
+	"os"
 	"strconv"
-	"time" */
+	"time"
 )
 
 var MIN = 0
@@ -38,8 +38,12 @@ func main() {
 	fmt.Println(startChar[0])
 	fmt.Println(char)
 	fmt.Println(string(startChar[0]))
+	fmt.Println("=========")
+	myRand := random(MIN, MAX)
+	fmt.Println(myRand, byte(myRand))
+	fmt.Println(string(startChar[0] + byte(myRand)))
+	fmt.Println("=========")
 
-	/*
 	var LENGTH int64 = 8
 
 	arguments := os.Args
@@ -60,8 +64,6 @@ func main() {
 	rand.Seed(SEED)
 	fmt.Println(getString(LENGTH))
 	fmt.Println("========")
-	startChar := "!"
 	fmt.Printf("%T %b\n", startChar[0], startChar[0])
 	fmt.Println(strconv.ParseInt("1234", 16, 64))
-	*/
 }
