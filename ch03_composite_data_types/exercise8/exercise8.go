@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-// Make changes to csvData.go to separate the fields of a record based on the # character.
+// Make changes to csvData.go in order to separate the fields of a record with a character that is given as a command-line argument.
 
 type Record struct {
 	Name       string
@@ -36,7 +36,7 @@ func readCSVFile(filepath string) ([][]string, error) {
 	return lines, nil
 }
 
-func saveCSVFile(filepath string) error {
+func saveCSVFile(filepath string, delimiter rune) error {
 	csvfile, err := os.Create(filepath)
 	if err != nil {
 		return err
@@ -44,7 +44,7 @@ func saveCSVFile(filepath string) error {
 	defer csvfile.Close()
 	csvwriter := csv.NewWriter(csvfile)
 	// Changing the default field delimiter to tab
-	csvwriter.Comma = '#'
+	csvwriter.Comma = delimiter
 	for _, row := range myData {
 		temp := []string{row.Name, row.Surname, row.Number, row.LastAccess}
 		_ = csvwriter.Write(temp)
@@ -54,12 +54,13 @@ func saveCSVFile(filepath string) error {
 }
 
 func main() {
-	if len(os.Args) != 3 {
-		fmt.Println("csvData input output!")
+	if len(os.Args) != 4 {
+		fmt.Println("csvData input output delimiter!")
 		return
 	}
 	input := os.Args[1]
 	output := os.Args[2]
+	delimiter := os.Args[3]
 	lines, err := readCSVFile(input)
 	if err != nil {
 		fmt.Println(err)
@@ -76,9 +77,17 @@ func main() {
 		myData = append(myData, temp)
 		fmt.Println(temp)
 	}
-	err = saveCSVFile(output)
+	err = saveCSVFile(output, []rune(delimiter)[0])
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
+
+	// string to []rune conversion
+	sample := "⌘こ🦡んに🦍ちは"
+	var rs []rune = []rune(sample)
+	for k := range rs {
+		fmt.Printf("%c", rs[k])
+	}
+	fmt.Println()
 }
